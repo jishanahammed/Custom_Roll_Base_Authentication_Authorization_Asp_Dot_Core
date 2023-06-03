@@ -1,0 +1,103 @@
+﻿
+
+@model UserRole
+@{
+    ViewData["Title"] = "AddRecord";
+    Layout = "~/Views/Shared/admin_Layout.cshtml";
+}
+<style>
+    .shadow {
+        box-shadow: 0 .2rem 1rem rgba(0,0,0,0.10) !important;
+    }
+
+    .form-check {
+        position: relative;
+        display: block;
+        padding-left: 1rem;
+        padding-top: 6px;
+    }
+</style>
+
+<div class="content-header">
+    <div class="container-fluid ">
+        <div class="breadcrumb d-flex justify-content-between align-items-center shadow pl-3 pr-3">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="/Admin/Index" style="font-weight:800;color:#fff">Home</a></li>
+                <li class="breadcrumb-item active" style="color:#fff">Add User Roles</li>
+            </ol>
+            <div>
+                <a href="/UserRole_View_List/Role_View" style="color:#fff;font-weight:900"><i class="fa fa-backward mr-2"></i> Back to  User Roles List </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <h5> <i class="fas fa-plug"></i> User Roles</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form asp-action="AddRecord">
+                    <input type="hidden" asp-for="RoleID" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (ViewBag.message != null)
+                    {
+                        <h4 class="text-success">
+                            @ViewBag.message
+                        </h4>
+                    }
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="RoleName" class="control-label"></label>
+                                <input asp-for="RoleName" class="form-control" required />
+                                <span asp-validation-for="RoleName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="NA_Application.ApplicationName" class="control-label"> Application Name </label>
+                                <select asp-for="NA_Application.ApplicationName" class="form-control" asp-items="ViewBag.applicationlist" required>
+                                    <option value="">Select Application Name</option>
+                                </select>
+                                <span asp-validation-for="NA_Application.ApplicationName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Remarks" class="control-label"></label>
+                                <input asp-for="Remarks" class="form-control" required />
+                                <span asp-validation-for="Remarks" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4 text-center">
+
+                        <input type="submit" onclick="return confirm('Are you sure you want to Add this?')" value="submit" class="btn btn-icvm" />
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#UserRole').addClass('active');
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

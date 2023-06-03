@@ -1,0 +1,223 @@
+﻿@model PagedModel<UserRole>
+@{
+    ViewData["Title"] = "Role_View";
+    Layout = "~/Views/Shared/admin_Layout.cshtml";
+    var ff = Model;
+    int SN = Model.FirstSerialNumber;
+    var rolelit = ViewBag.rolelist;
+    PagedList pager = new PagedList();
+    int pageNo = 0;
+    if (Model.PagedList != null)
+    {
+        pager = Model.PagedList;
+        pageNo = Model.PagedList.PageIndex;
+        SN = ((Model.PagedList.PageIndex * Model.PagedList.PageSize) - Model.PagedList.PageSize) + 1;
+    }
+    string urlinstring = "UserRole_View_List/Getpage";
+    Pager pagemodel = new Pager() { PagedList = pager, StringUrl = urlinstring };
+    var add = Model.action.FirstOrDefault(f => f.url == ("/Role_Add/AddRecord").Trim());
+    var Edit = Model.action.FirstOrDefault(f => f.url == ("/Role_Modify/update").Trim());
+    var delete = Model.action.FirstOrDefault(f => f.url == ("/Role_Delete/delete").Trim());
+}
+
+
+<div class="content-header">
+    <div class="container-fluid ">
+        <div class="breadcrumb d-flex justify-content-between align-items-center shadow pl-3 pr-3">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="/Admin/Index" style="font-weight:800;color:#fff">Home</a></li>
+                <li class="breadcrumb-item active" style="color:#fff">Role</li>
+            </ol>
+            <div>
+
+                @if (add != null)
+                {
+                    <a href="@add.url.Trim()" style="color:#fff;font-weight:900"><i class="fa fa-plus"></i> Add Role  </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <h5> <i class="fas fa-list"></i>All Roles  </h5>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-right" style="float:right !important">
+                            <strong class="card-title">
+                                Show
+                                <select id="sizeperpageselect" onchange="RoleLoadPagination('@urlinstring',1)">
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                </select> per page
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="filter-from pt-3 pl-3 pr-3">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="ApplicationName" class="control-label"> Application Name </label>
+                            <select name="ApplicationName" id="ApplicationName" class="form-control" asp-items="ViewBag.applicationlist">
+                                <option value=""> Application Name</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="form-group mt">
+                            <input type="text" class="form-control" placeholder="Search By Full Name" id="object_Search">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-sm-12 mt2" style="margin-top:27px">
+                        <button type="button" class="btn btn-icvm w-100 d-block" onclick="RoleLoadPagination('@pagemodel.StringUrl', 1)"> <i class="fas fa-search mr-2"></i> Search</button>
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-sm-12 mt2" style="margin-top:27px">
+                        <button type="button" class="btn btn-outline-danger w-100 d-block" onclick="ObjectionLoadRefresh('@pagemodel.StringUrl', 1)" style="height:39px;"> <i class="fas fa-sync-alt mr-2"></i> Refresh</button>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div id="paginatedsection1">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered  table-hover">
+                            <thead class="thead-deft">
+                                <tr>
+                                    <th>
+                                        SL
+                                    </th>
+                                    <th>
+                                        Application Name
+                                    </th>
+                                    <th>
+                                        Role Name
+                                    </th>
+                                    <th>
+                                        Remarks
+                                    </th>
+
+                                    <th class="text-center">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Models)
+                                {
+                                    <tr id="@SN">
+                                        <td>
+                                            @SN
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NA_Application.ApplicationName)
+                                        </td>
+                                        <td>
+                                            @if (Edit != null)
+                                            {
+                                                <a type="submit" class="link-primary font-weight-bold" href="@Edit.url?id=@item.RoleID"> @item.RoleName</a>
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(modelItem => item.RoleName)
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Remarks)
+                                        </td>
+
+                                        <td class="text-center">
+                                            @if (delete != null)
+                                            {
+
+                                                <a type="submit" class="btn btn-danger" onclick="Delele(@item.RoleID,'@SN')"> <i class="fa fa-trash"></i> </a>
+                                            }
+
+
+                                        </td>
+                                    </tr>
+                                    SN++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+
+                        <div class="text-left">
+                            @await Html.PartialAsync("_userRolepagingpartial", pagemodel)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#UserRole').addClass('active');
+        });
+
+        function Delele(id, sl) {
+            var ans = confirm("Are you sure you want to delete this Record?");
+            if (ans) {
+                $.ajax({
+                    url: '/Role_Delete/delete?id=' + id + '',
+                    type: 'GET',
+                    success: function (result) {
+                        if (result) {
+                            $("#" + sl).remove();
+                            $.notify("Delete successfully", "success");
+                        }
+                        else {
+                            $.notify("Sommething went wrong!", "error");
+                        }
+                    }
+                });
+            }
+        }
+
+        function RoleLoadPagination(url, page) {
+            var pagesize = parseInt($("#sizeperpageselect").val());
+            var fullName = $("#object_Search").val();
+            var ApplicationName = $("#ApplicationName option:selected").val();
+            $('#paginatedsection1').empty();
+            $.ajax({
+                url: "/" + url + "?page=" + page + "&&pagesize=" + pagesize + "&&ApplicationName=" + ApplicationName +"&&fullName=" + fullName + "",
+                type: 'GET',
+                success: function (result) {
+                    $('#paginatedsection1').html(result);
+                    $('#sizeperpageselect').val(pagesize);
+                }
+            });
+        }
+
+        function ObjectionLoadRefresh(url, page) {
+            location.reload();
+        }
+    </script>
+}
+

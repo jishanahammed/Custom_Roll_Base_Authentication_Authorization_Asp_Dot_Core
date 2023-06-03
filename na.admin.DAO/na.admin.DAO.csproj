@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\na.admin.DAL\na.admin.DAL.csproj" />
+    <ProjectReference Include="..\na.admin.Models\na.admin.Models.csproj" />
+    <ProjectReference Include="..\na.admin.Utility\na.admin.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

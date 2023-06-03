@@ -1,0 +1,87 @@
+﻿@model PagedModel<UserRole>
+@{
+    ViewData["Title"] = "Index";
+    var ff = Model;
+    int SN = Model.FirstSerialNumber;
+    PagedList pager = new PagedList();
+    int pageNo = 0;
+    if (Model.PagedList != null)
+    {
+        pager = Model.PagedList;
+        pageNo = Model.PagedList.PageIndex;
+        SN = ((Model.PagedList.PageIndex * Model.PagedList.PageSize) - Model.PagedList.PageSize) + 1;
+    }
+    string urlinstring = "UserRole_View_List/Getpage";
+    Pager pagemodel = new Pager() { PagedList = pager, StringUrl = urlinstring };
+    var add = Model.action.FirstOrDefault(f => f.url == ("/MvaUsersAdd/User_Add").Trim());
+    var Edit = Model.action.FirstOrDefault(f => f.url == ("/User_Modify/update").Trim());
+    var delete = Model.action.FirstOrDefault(f => f.url == ("/User_Delete/delete").Trim());
+}
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered  table-hover">
+            <thead class="thead-deft">
+                <tr>
+                    <th>
+                        SL
+                    </th>
+                    <th>
+                        Application Name
+                    </th>
+                    <th>
+                        Role Name
+                    </th>
+                    <th>
+                        Remarks
+                    </th>
+
+                    <th class="text-center">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Models)
+                {
+                    <tr id="@SN">
+                        <td>
+                            @SN
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NA_Application.ApplicationName)
+                        </td>
+                        <td>
+                            @if (Edit != null)
+                            {
+                                <a type="submit" class="link-primary font-weight-bold" href="@Edit.url?userId=@item.RoleID"> @item.RoleName</a>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.RoleName)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remarks)
+                        </td>
+
+                        <td class="text-center">
+                            @if (delete != null)
+                            {
+
+                                <a type="submit" class="btn btn-danger" onclick="Delele(@item.RoleID,'@SN')"> <i class="fa fa-trash"></i> </a>
+                            }
+
+                        </td>
+                    </tr>
+                    SN++;
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <div class="text-left">
+            @await Html.PartialAsync("_userRolepagingpartial", pagemodel)
+        </div>
+    </div>
+</div>

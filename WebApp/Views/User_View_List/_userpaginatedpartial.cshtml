@@ -1,0 +1,113 @@
+﻿@model PagedModel<User>
+@{
+    ViewData["Title"] = "Index";
+    var ff = Model;
+    int SN = Model.FirstSerialNumber;
+    PagedList pager = new PagedList();
+    int pageNo = 0;
+    if (Model.PagedList != null)
+    {
+        pager = Model.PagedList;
+        pageNo = Model.PagedList.PageIndex;
+        SN = ((Model.PagedList.PageIndex * Model.PagedList.PageSize) - Model.PagedList.PageSize) + 1;
+    }
+    string urlinstring = "User_View_list/Getpage";
+    Pager pagemodel = new Pager() { PagedList = pager, StringUrl = urlinstring };
+    var add = Model.action.FirstOrDefault(f => f.url == ("/MvaUsersAdd/User_Add").Trim());
+    var Edit = Model.action.FirstOrDefault(f => f.url == ("/User_Modify/update").Trim());
+    var delete = Model.action.FirstOrDefault(f => f.url == ("/User_Delete/delete").Trim());
+}
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered  table-hover">
+            <thead class="thead-deft">
+                <tr>
+                    <th>
+                        SL
+                    </th>
+                    <th>
+                        Login Name
+                    </th>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Role Name
+                    </th>
+                    <th>
+                        Application Name
+                    </th>
+
+                    <th>
+                        Employee No
+                    </th>
+                    <th>
+                        Remarks
+                    </th>
+
+                    <th class="text-center">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Models)
+                {
+                    <tr id="@SN">
+                        <td>
+                            @SN
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LoginName)
+                        </td>
+                        <td>
+                            @if (Edit != null)
+                            {
+                                <a type="submit" class="link-primary font-weight-bold" href="@Edit.url?userId=@item.UserID"> @item.FullName</a>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            }
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role.RoleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NA_Application.ApplicationName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remarks)
+                        </td>
+
+                        <td class="text-center">
+                            @*@if (Edit != null)
+                        {
+                        <a type="submit" class="btn btn-info" href="@Edit.url?userId=@item.UserID"> Edit</a>
+                        }*@
+                            @if (delete != null)
+                            {
+
+                                <a type="submit" class="btn btn-danger" onclick="Delele(@item.UserID,'@SN')"> <i class="fa fa-trash"></i> </a>
+                            }
+
+
+                        </td>
+                    </tr>
+                    SN++;
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+
+        <div class="text-left">
+            @await Html.PartialAsync("_userpagingpartial", pagemodel)
+        </div>
+    </div>
+</div>

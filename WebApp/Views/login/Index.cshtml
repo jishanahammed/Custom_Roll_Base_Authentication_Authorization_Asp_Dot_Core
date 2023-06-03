@@ -1,0 +1,49 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class=" mt-5 mb-5 ">
+    <div class="container">
+        <div class=" row justify-content-center">
+            <div class="col-12 col-sm-10 col-lg-6 col-md-7 ">
+                <div class="card d-ui-card shadow">
+                    <div class="di-logo">
+                        <span style="font-weight:900;color:#947b5b;font-size:35px">L</span>og<span style="font-weight: 900; color: #947b5b; font-size: 35px">i</span>n
+                      <br />  <img src="~/images/logo.png" style="width:300px" />
+                    </div>
+                    <form class="d-ui" asp-action="Index">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" required placeholder="UserName" asp-for="UserName" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                            <span></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="password" class="form-control" placeholder="******" required asp-for="Password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <span asp-validation-for="IncorrectInput" class="text-danger"></span>
+                        @Html.HiddenFor(s => s.ReturnUrl)
+                        <div class="row  justify-content-center d-action">
+
+                            <div class="col-12 text-center mt-1">  <input type="submit" class="btn btn-mva w-100 " value="Login" />  </div>
+                        </div>
+                        <div style="border-bottom: 1px solid rgb(222, 222, 222); margin: 10px auto; width: 110px;" class="mt-3 mb-2"></div>
+                        <div class="Jea mQ8 zI7 iyn Hsu text-center">
+                            <button class="text-center" style="background: none; border: none; padding: 0px; text-align: center; color: rgb(51, 51, 51);font-weight: bold;font-size:14px"> <a class="text-mva">Forgotten your password?</a>  </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

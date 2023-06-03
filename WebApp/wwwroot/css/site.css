@@ -1,0 +1,245 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 768px) {
+    .mt {
+        margin-top: 29px;
+    }
+
+    .mt2 {
+        margin-top: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mt {
+        margin-top: 12px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.btn-icvm {
+    color: #fff;
+    background-color: #947b5b !important;
+    border-color: #947b5b;
+    box-shadow: none;
+    height: 39px;
+}
+
+@media (max-width:768px) {
+    .d-ui-card {
+        padding: 20px 6px 30px 6px;
+        border: none;
+        border-radius: 30px;
+    }
+}
+
+@media (min-width:1200px) {
+    .d-ui-card {
+        padding: 55px 100px 60px 100px;
+        border: none;
+        border-radius: 30px;
+    }
+}
+
+@media (min-width:768px) {
+    .d-ui-card {
+        padding: 55px 50px 60px 50px;
+        border: none;
+        border-radius: 30px;
+    }
+}
+
+.d-ui-card .form-control {
+}
+
+.d-ui h2 {
+    color: rgb(51, 51, 51);
+    font-size: 36px;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    word-break: break-word;
+}
+
+.d-action input {
+    border: 0px;
+    height: 45px;
+    display: inline-block;
+    border-radius: 20px;
+    -webkit-font-smoothing: antialiased;
+    padding: 0px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+}
+
+.d-ui .form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.6em + 1.4rem + 2px );
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 1.75rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.d-action .btn {
+    border-radius: 30px;
+}
+
+.d-action i {
+    text-align: left !important;
+    font-size: 26px;
+}
+
+.d-action .w-75 {
+    width: 75% !important;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.di-logo {
+    text-align: center;
+    margin-bottom: 20px;
+    color: darkslateblue;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+    .di-logo a {
+        text-decoration: none !important;
+        color: rgb(0 0 0 / 90%);
+        font-size: 26px;
+    }
+
+.btn-mva {
+    color: #fff;
+    background-color: #947b5b;
+    border-color: #e0d2b7;
+}
+
+.text-mva {
+    color: #947b5b !important;
+}
+
+.breadcrumb {
+    background-color: #947b5b !important;
+    line-height: 1.8rem;
+    margin-bottom: 0;
+    padding: 0;
+    color: #fff !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    float: left;
+    padding-right: 0.5rem;
+    color: #fff;
+    content: "/";
+}
+
+.thead-deft {
+    background-color: #947b5b !important;
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #947b5b;
+    border-color: #947b5b;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #947b5b;
+    background-color: #fff;
+    border: 1px solid #947b5b;
+}
+
+.table-hover tbody tr:hover {
+    color: #212529;
+    background-color: #e0d2b7;
+}
+
+.card-footer {
+    padding: 0.10rem 0.5rem;
+    background-color: rgba(0,0,0,.03);
+    border-top: 0 solid rgba(0,0,0,.125);
+}
+
+.link-primary:hover {
+    border-bottom: 1px solid blue;
+    color: #007bff;
+    font-weight: 600;
+}
+
+.link-primary {
+    color: black;
+    font-weight: 600;
+}
+
+
+
+
+table {
+    text-align: center;
+    table-layout: auto;
+    text-align: center;
+    font-family: Segoe UI, sans-serif;
+}
+
+th {
+    background-color: #947b5b;
+    color: white;
+}
+
+tr {
+    background-color: #fbf3ea;
+    font-size: 17px;
+    transition: 0.35s ease-in-out;
+    z-index: 7;
+}
+
+    tr:nth-child(even) {
+        background: #efe6d4;
+    }
+
+    tr:hover {
+        /* transform: scale(1.01);*/
+        box-shadow: 1rem 0 1rem rgba(128, 128, 128, 0.308);
+        background-color: #e0d2b7;
+        cursor: pointer;
+    }
+
+.control-label {
+    color: #947b5b !important;
+}

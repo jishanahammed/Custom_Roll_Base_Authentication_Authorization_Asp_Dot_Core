@@ -1,0 +1,134 @@
+﻿@model User
+@{
+    ViewData["Title"] = "AddRecord";
+    Layout = "~/Views/Shared/admin_Layout.cshtml";
+    var rolelit = ViewBag.rolelist;
+}
+<style>
+
+</style>
+<div class="content-header">
+    <div class="container-fluid ">
+        <div class="breadcrumb d-flex justify-content-between align-items-center shadow pl-3 pr-3">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="/Admin/Index" style="font-weight:800;color:#fff">Home</a></li>
+                <li class="breadcrumb-item active" style="color:#fff">Add User </li>
+            </ol>
+            <div>
+                <a href="/MvaUsers/User_View" style="color:#fff;font-weight:900"><i class="fa fa-backward mr-2"></i> Back to  User  List </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <h5> <i class="fas fa-plus"></i> Add User</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form asp-action="AddRecord">
+                    <input type="hidden" asp-for="UserID" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (ViewBag.message != null)
+                    {
+                        <h4 class="text-success">
+                            @ViewBag.message
+                        </h4>
+                    }
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="LoginName" class="control-label"> Login Name</label>
+                                <input asp-for="LoginName" class="form-control" required />
+                                <span asp-validation-for="LoginName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="FullName" class="control-label"> Full Name</label>
+                                <input asp-for="FullName" class="form-control" required />
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="LoginPWD" class="control-label">Login Password</label>
+                                <input asp-for="LoginPWD" class="form-control" required />
+                                <span asp-validation-for="LoginPWD" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="NA_Application.ApplicationName" class="control-label" > Application Name </label>
+                                <select asp-for="NA_Application.ApplicationName" class="form-control" id="ApplicationName" asp-items="ViewBag.applicationlist" required>
+                                    <option value="">Select Application Name</option>
+                                </select>
+                                <span asp-validation-for="NA_Application.ApplicationName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Role.RoleID" class="control-label"> Role </label>
+                                <select asp-for="Role.RoleID" class="form-control" id="RoleID">
+                                    <option value="">Select Role</option>
+                                </select>
+                                <span asp-validation-for="Role.RoleID" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Remarks" class="control-label"></label>
+                                <input asp-for="Remarks" class="form-control" required />
+                                <span asp-validation-for="Remarks" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="EmployeeNo" class="control-label"> Employee No</label>
+                                <input asp-for="EmployeeNo" class="form-control" required />
+                                <span asp-validation-for="EmployeeNo" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4 text-center">
+                        <input type="submit" onclick="return confirm('Are you sure you want to Add this?')" value="submit" class="btn btn-icvm" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#Users').addClass('active');
+        });
+
+        $("#ApplicationName").change(function () {
+            var ApplicationName = $("#ApplicationName option:selected").val();
+            var datalist = JSON.parse('@Html.Raw(Json.Serialize(rolelit))');
+            var list = datalist.filter(d => d.applicationName == ApplicationName);
+            console.log(list);
+            su = '<option value="">Select Role</option>';
+            for (var i = 0; i < list.length; i++) {
+                su += '<option  value="' + list[i].id + '">' + list[i].name + '</option>';
+            }
+            $("#RoleID").html(su);
+        });
+
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

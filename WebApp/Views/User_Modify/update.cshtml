@@ -1,0 +1,106 @@
+﻿@model User
+@{
+    ViewData["Title"] = "update";
+    Layout = "~/Views/Shared/admin_Layout.cshtml";
+}
+
+<style>
+    .control-label {
+        color: #947b5b !important;
+    }
+</style>
+
+
+<div class="content-header">
+    <div class="container-fluid ">
+        <div class="breadcrumb d-flex justify-content-between align-items-center shadow pl-3 pr-3">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="/Admin/Index" style="font-weight:800;color:#fff">Home</a></li>
+                <li class="breadcrumb-item active" style="color:#fff">User Modify</li>
+            </ol>
+            <div>
+                <a href="/MvaUsers/User_View" style="color:#fff;font-weight:900"><i class="fa fa-backward mr-2"></i> Back to  User  List </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <h5> <i class="fas fa-edit"></i> User Modify </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form asp-action="update">
+                    <input type="hidden" asp-for="UserID" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (ViewBag.message != null)
+                    {
+                        <h4 class="text-success">
+                            @ViewBag.message
+                        </h4>
+                    }
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="NA_Application.ApplicationName" class="control-label"></label>
+                                <input asp-for="NA_Application.ApplicationName" readonly class="form-control" required />
+                                <span asp-validation-for="NA_Application.ApplicationName" class="text-danger"></span>
+                            </div>
+                            @*<div class="form-group">
+                                <label asp-for="NA_Application.ApplicationName" class="control-label"> Application Name </label>
+                                <select asp-for="NA_Application.ApplicationName" readonly class="form-control" asp-items="ViewBag.applicationlist" required>
+                                    <option value="">Select Application Name</option>
+                                </select>
+                                <span asp-validation-for="NA_Application.ApplicationName" class="text-danger"></span>
+                            </div>*@
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Role.RoleID" class="control-label"> Role </label>
+                                <select asp-for="Role.RoleID" class="form-control" asp-items="ViewBag.rolelist" required>
+                                    <option value="">Select Role</option>
+                                </select>
+                                <span asp-validation-for="Role.RoleID" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Remarks" class="control-label"></label>
+                                <input asp-for="Remarks" class="form-control" required />
+                                <span asp-validation-for="Remarks" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4 text-center">
+                        <input type="submit" onclick="return confirm('Are you sure you want to Update this?')" value="Update" class="btn btn-icvm" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#Users').addClass('active');
+        });
+       
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

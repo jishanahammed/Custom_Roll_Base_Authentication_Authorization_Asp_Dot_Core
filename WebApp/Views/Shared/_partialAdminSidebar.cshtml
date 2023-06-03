@@ -1,0 +1,116 @@
+﻿@inject ICurrentuserinfo workcontect
+@*@inject Currentuserinfo userinformation*@
+@{
+    //var userinfo = userinformation.getinfo();
+    var currentuser = workcontect.GetInfo();
+}
+<style>
+    [class*=sidebar-light-] .nav-sidebar > .nav-item.menu-open > .nav-link, [class*=sidebar-light-] .nav-sidebar > .nav-item:hover > .nav-link {
+        background-color: #947b5b !important;
+        color: #f7faff !important;
+        font-weight: 900;
+    }
+
+    [class*=sidebar-light-] .nav-sidebar > .nav-item.menu-open > .nav-link, [class*=sidebar-light-] .nav-sidebar > .nav-item:hover > .nav-link i {
+            color: #f7faff !important;
+        }
+    .nav-treeview > .nav-item > .nav-link.active, [class*=sidebar-light-] .nav-treeview > .nav-item > .nav-link.active:hover {
+        background-color: #947b5b !important;
+        color: #f7faff !important;
+        border: 1px solid #e0d2b7 !important;
+        font-weight:900;
+    }
+
+    .navbar-white {
+        /* background-color: #fff; */
+        color: #fbf3ea !important;
+        background-color: #947b5b;
+    }
+
+    .layout-navbar-fixed .wrapper .sidebar-light-info .brand-link:not([class*=navbar]) {
+        color:#fbf3ea;
+        background-color: #947b5b;
+    }
+
+    .main-header .nav-link i {
+        color: #fbf3ea !important;
+    }
+
+    [class*=sidebar-light-] {
+        background-color: #e0d2b7 !important;
+    }
+
+    .main-sidebar .nav-link i {
+        color: #947b5b;
+    }
+
+    .nav-sidebar > .nav-item {
+        margin-bottom: 0;
+        border-bottom: 1px solid #947b5b;
+    }
+
+    .sidebar-dark-info .nav-sidebar > .nav-item > .nav-link.active, .sidebar-light-info .nav-sidebar > .nav-item > .nav-link.active {
+        background-color: #947b5b;
+        color: #fff;
+        border-radius: 0rem !important;
+    }
+</style>
+
+<aside class="main-sidebar sidebar-light-info elevation-4">
+    <a href="/Admin/Index" class="brand-link text-center" style="line-height:1.4;font-size:17px">
+       <b> User Access Control</b>
+        
+    </a>
+
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item" style="font-weight:500;display:flex">
+                    <div style="height:30px;width:30px;margin-right:10px; padding:5px;">
+                        <img src="~/images/man.png" style="height:30px;width:30px;border-radius:30px;margin-right:5px" />
+                    </div>
+                   
+                    <p style="font-weight:800;text-align:center;padding: 4px 0px 8px 0px;margin-bottom:0px; font-size: 18px;">
+                       @currentuser.FullName 
+                      
+                     </p>
+                  
+                </li>
+
+
+
+                <li class="nav-item"  style="font-weight:800">
+                    
+                    <a asp-controller="Admin" asp-action="Index" id="Dashboard" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                @if (currentuser.actionslist == null)
+                {
+                    <p class="text-center"> <b> No Assign Role </b> </p>
+                }
+                else
+                {
+                    @foreach (var item in currentuser.actionslist)
+                    {
+                        <li class="nav-item" style="font-weight:800">
+
+                            <a asp-controller="@item.ControllerName" asp-action="@item.ActionName" id="@item.UiNmae" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    @item.UiNmae
+                                </p>
+                            </a>
+                        </li>
+                    }
+                }
+
+            </ul>
+        </nav>
+    </div>
+</aside>
+
