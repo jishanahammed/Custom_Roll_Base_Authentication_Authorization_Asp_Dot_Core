@@ -156,7 +156,6 @@ namespace WebApp.Controllers.Web_User
                             stream.Position = 0;
                             stream.CopyTo(Response.Body);
                         }
-
                     }
                 }
             }
